@@ -7,10 +7,12 @@ export interface DataContextProps {
     followings?: any[];
     notFollowing?: any[];
     currentListView?: string;
+    selectedTabData?: any[];
     setFollowers?: any;
     setFollowings?: any;
     setNotFollowing?: any;
     setCurrentListView?: any;
+    setSelectedTabData?: any;
 }
 
 export const DataContext = createContext<DataContextProps>({});
@@ -20,6 +22,11 @@ export default function DataProvider({ children }: any) {
     const [followings, setFollowings] = useState([]);
     const [notFollowing, setNotFollowing] = useState([]);
     const [currentListView, setCurrentListView] = useState("Followers")
+    const [selectedTabData, setSelectedTabData] = useState<any>();
+
+    useEffect(() => {
+        setSelectedTabData(followers)
+    }, [followers])
 
     return (
         <DataContext.Provider value={{
@@ -30,7 +37,9 @@ export default function DataProvider({ children }: any) {
             notFollowing,
             setNotFollowing,
             currentListView,
-            setCurrentListView
+            setCurrentListView,
+            selectedTabData,
+            setSelectedTabData
         }}>
             {children}
         </DataContext.Provider>

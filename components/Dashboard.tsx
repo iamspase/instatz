@@ -11,7 +11,7 @@ export default function Dashboard() {
   if(followings?.length === 0 && followers?.length === 0) return <></>
 
   return (
-    <div className="lg:w-[90%] xl:ml-16">
+    <div className="xl:w-[90%] xl:ml-16">
         <Stats />
         <UsersList />
     </div>

@@ -9,7 +9,7 @@ export default function FileChooser() {
   const [files, setFiles] = useState<FileList>();
   const [followingsFile, setFollowingsFile] = useState<boolean>(false);
   const [followersFile, setFollowersFile] = useState<boolean>(false);
-
+  const [error, setError] = useState<string>("");
   const { followers, setFollowers, followings, setFollowings, notFollowing, setNotFollowing } = useContext(DataContext);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function FileChooser() {
 
   useEffect(() => {
     // see who follows back
-    const notFollowingUsers = followers?.filter(follower => !followings?.some(following => following.name === follower.name));
+    const notFollowingUsers = followings?.filter(following => !followers?.some(follower => follower.name === following.name));
 
     // Update the notFollowing state with the filtered users
     setNotFollowing(notFollowingUsers || []);
@@ -47,8 +47,16 @@ export default function FileChooser() {
   }
 
   function proccessFiles() {
+    if(!files) {
+      return setError("Please try again uploading the required files.")
+    }
+    setError("")
     proccessFile(files![0])
     proccessFile(files![1])
+  }
+
+  if(followers?.length! > 0 && followings?.length! > 0) {
+    return null;
   }
 
   return (
@@ -74,6 +82,7 @@ export default function FileChooser() {
         />
 
         <button onClick={proccessFiles} className='bg-indigo-500 border-none outline-none rounded-lg text-white py-1 px-4 text-sm mt-3'>Continue</button>
+        <p className='text-red-400 mt-4'>{error}</p>
     </div>
   )
 }
