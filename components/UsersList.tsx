@@ -10,7 +10,7 @@ export default function UsersList() {
   const [search, setSearch] = useState<string>("");
 
   const filteredData = selectedTabData?.filter((user: any) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
+    user.string_list_data[0].value.toLowerCase().includes(search.toLowerCase())
   );
 
   useEffect(() => {
@@ -32,13 +32,31 @@ export default function UsersList() {
 
       <ul>
         {currentListView === 'Followers' && (
-          filteredData?.map((follower) => <User key={follower.name} name={follower.name} />)
+          filteredData?.map((follower) => 
+            <User 
+                key={follower.string_list_data[0].href} 
+                value={follower.string_list_data[0].value} 
+                href={follower.string_list_data[0].href}
+                timestamp={follower.string_list_data[0].timestamp}
+              />)
         )}
         {currentListView === 'Followings' && (
-          filteredData?.map((following) => <User key={following.name} name={following.name} />)
+          filteredData?.map((following) => 
+            <User 
+                key={following.string_list_data[0].href} 
+                value={following.string_list_data[0].value} 
+                href={following.string_list_data[0].href}
+                timestamp={following.string_list_data[0].timestamp}
+            />)
         )}
         {currentListView === 'Not Following' && (
-          filteredData?.map((notFollower) => <User key={notFollower.name} name={notFollower.name} />)
+          filteredData?.map((notFollower) => 
+            <User 
+              key={notFollower.string_list_data[0].href} 
+              value={notFollower.string_list_data[0].value} 
+              href={notFollower.string_list_data[0].href}
+              timestamp={notFollower.string_list_data[0].timestamp}
+            />)
         )}
       </ul>
     </div>

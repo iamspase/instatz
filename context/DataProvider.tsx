@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useEffect, useState } from "react"
+import React, { ReactNode, createContext, useEffect, useState } from "react"
 
 export interface DataContextProps {
     followers?: any[];
@@ -17,7 +17,7 @@ export interface DataContextProps {
 
 export const DataContext = createContext<DataContextProps>({});
 
-export default function DataProvider({ children }: any) {
+export default function DataProvider({ children } : { children: ReactNode }) {
     const [followers, setFollowers] = useState([]);
     const [followings, setFollowings] = useState([]);
     const [notFollowing, setNotFollowing] = useState([]);
